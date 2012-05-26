@@ -1,0 +1,136 @@
+﻿<html>
+<head><title>Настройки Б23</title></head>
+
+<style>
+body
+{
+	line-height:1.6em;
+	font-family:Helvetica,Arial,sans-serif;
+	font-size:.8em;
+}
+
+h1
+{
+	font-size:1.8em;
+	font-weight:normal;
+	color:#668888;
+	background-color:transparent;
+}
+
+div#header
+{
+	margin:4em 0 2em 0;
+}
+
+div#header, p.description
+{
+	min-width:32em;
+	margin-left:4em;
+	margin-right:10%;
+}
+
+div#fields
+{
+	margin:2em 4em;
+	min-width:32em;
+	width:60%;
+}
+
+div#fields>p
+{
+	margin:0 0 .5em 0;
+	padding:0;
+}
+
+div#fields>p>label>span
+{
+	display:block;
+	clear:none;
+	float:left;
+	width:9.5em;
+	margin-right:1.5em;
+	line-height:2.1em;
+}
+
+div#fields>p>button
+{
+	margin:.5em 0 0 10.5em;
+}
+
+span.info
+{
+	display:block;
+	max-width:32em;
+	margin:.2em 0 0 11em;
+	line-height:1em;
+	color:gray;
+	background-color:transparent;
+}
+
+span#status
+{
+	margin-left:1em;
+	color:green;
+	background-color:transparent;
+}
+</style>
+
+<script type="text/javascript">
+
+function element(elementName)
+{
+	return document.getElementById(elementName);
+}
+
+function saveOptions() {
+	localStorage['b23_user'] = document.getElementById('b23_user').value;
+	localStorage['b23_key'] = element('b23_key').value;
+
+	var status = document.getElementById('status');
+	status.innerHTML = 'Спасибо, мы записали';
+	setTimeout(function()
+	{
+		status.innerHTML = '';
+	}, 1000);
+}
+
+function restoreOptions() {
+	setOptionValue('b23_user', 'b23_user');
+	setOptionValue('b23_key', 'b23_key');
+}
+
+function setOptionValue(elementId, valueName)
+{
+	var tmp	= localStorage[valueName];
+	element(elementId).value = tmp?tmp:'';
+}
+
+</script>
+
+<body onload="restoreOptions()">
+
+<div id="header"><h1><strong>Б23</strong> Укратитель ссылок</h1></div>
+
+<p class="description">Для работы плагина понадобится сообщить ему ваше имя пользователя 
+и ключ API. То и другое можно получить, <a href="http://b23.ru/registration/">зарегистрировавшись</a> 
+и <a href="http://b23.ru/login/">авторизовавшись</a> на сервисе, и заглянув 
+на <a href="http://b23.ru/settings/">страницу настроек</a>. Благодаря аутентификации, 
+все ваши ссылки не потеряются для истории, а бережно сохранятся в <a href="http://b23.ru/m/">архиве</a> 
+и смогут быть найдены археологами будущего.</p>
+
+<div id="fields">
+
+<p><label><span>Имя&nbsp;пользователя:</span> <input type="text" id="b23_user"></label></p>
+
+<p><label><span>Ключ:</span> <input type="text" id="b23_key"></label>
+<span class="info"><small>Пожалуйста, не путайте ключ с паролем. Ключ придуман специально, 
+чтобы не раздавать свой пароль незнакомым плагинам.</small></span></p>
+
+<p><button onclick="saveOptions()">Запомнить</button>
+<span id="status"></span></p>
+
+</div>
+
+
+</body>
+</html>
