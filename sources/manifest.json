@@ -1,8 +1,7 @@
 {
 	"name": "B23",
-	"version": "1.0.32",
+	"version": "1.0.33",
 	"description": "Client plugin for b23.ru, URL shortening service.",
-	"author": "Alex Musayev",  
 	"icons":
 	{
 		"16": "images/b23-16.png",

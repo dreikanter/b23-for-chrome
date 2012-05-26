@@ -74,7 +74,7 @@ addEventListener('load', function()
 			
 			var currentUrl = tab.url;
 			show('working', 'Сокращаем&nbsp;URL...');
-			
+					
 			var req = new XMLHttpRequest();
 			
 			req.onreadystatechange = function()
@@ -83,6 +83,7 @@ addEventListener('load', function()
 				{
 					clearTimeout(reqTimer);
 					var shortUrl = req.responseText;
+
 					if(req.status == 401)
 					{
 						show('error', 'Ошибка авторизации. ' + 
@@ -125,8 +126,9 @@ addEventListener('load', function()
 					'Проверьте <a href="#" id="settings_link">корректность настроек</a>.');
 				element('settings_link').addEventListener('click', function() { openTab(getSettingsUrl()); }, false);
 			}, 10000);
-				
-			req.open('GET', 'http://b23.ru/api/shorten/' + quoteUrl(currentUrl), true, getUser(), getKey());
+
+			req.open('GET', 'http://b23.ru/api/shorten/' + quoteUrl(currentUrl), true);
+			req.setRequestHeader('Authorization', "Basic " + utf8_to_b64(getUser() + ':' + getKey()));
 			req.send(null);
 		}
 		catch(e)
@@ -195,6 +197,11 @@ function getSettingsUrl()
 {
 	var url = location.href;
 	return url.substring(0, url.length - 11) + '/settings.html';
+}
+
+
+function utf8_to_b64( str ) {
+    return window.btoa(unescape(encodeURIComponent( str )));
 }
 
 </script>
