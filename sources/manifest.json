@@ -1,15 +1,13 @@
 {
 	"name": "B23",
-	"version": "1.0.2",
-	"description": "This is a client plugin for b23.ru web service which makes long URLs shorter.",
-	"author": "dreikanter",  
+	"version": "1.0.32",
+	"description": "Client plugin for b23.ru, URL shortening service.",
+	"author": "Alex Musayev",  
 	"icons":
 	{
 		"16": "images/b23-16.png",
-		"32": "images/b23-32.png",
 		"48": "images/b23-48.png",
-		"128": "images/b23-128.png",
-		"256": "images/b23-256.png"
+		"128": "images/b23-128.png"
 	},
 	"options_page":	"settings.html",
 	"browser_action":
