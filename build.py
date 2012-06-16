@@ -1,31 +1,39 @@
+#!/usr/bin/env python
+
+# Creates zip archive for Google Market extension deployment
+
 import os
+import os.path
 import re
 import json
-from pprint import pprint
+
+# ---
 
 SRC_PATH = './sources'
 MANIFEST_FILE = SRC_PATH + '/manifest.json'
 BUILD_PATH = './versions'
+ZIP_COMMAND = "7za a -tzip -r -xr!.svn* {dest} {source}"
+ZIP_NAME = "{name}_{version}.zip"
 
-def get_extension_info(manifest_file):
-    try:
-        f = open(manifest_file, "rt")
-        manifest = json.load(f)
-        f.close()
-        return manifest["name"], manifest["version"]
+# ---
 
-    except:
-        print("Error reading manifest file or version not defined.")
-        exit(1)
+def get_manifest_details():
+	print("Reading manifest file [%s]..." % MANIFEST_FILE)
+	with open(MANIFEST_FILE, "rt") as f:
+		manifest = json.load(f)
+		return manifest["name"], manifest["version"]
 
+def get_cmd():
+	name, version = get_manifest_details()
+	print("Extension name: %s\nVersion: %s" % (name, version))
+	zip_name = ZIP_NAME.format(name=name.lower(), version=version)
+	return ZIP_COMMAND.format(source=os.path.join(SRC_PATH, '*'),
+		dest=os.path.join(BUILD_PATH, zip_name))
 
-name, version = get_extension_info(MANIFEST_FILE)
-name = re.sub(r"\s+", '-', name).lower()
-print("Building %s %s..." % (name, version))
 
 if(not os.path.exists(BUILD_PATH)):
     os.makedirs(BUILD_PATH)
-    
-cmd = "7za a -tzip -r -xr!.svn* %s\/%s_%s.zip %s\/*" % (BUILD_PATH, name, version, SRC_PATH);
-print(cmd)
+
+cmd = get_cmd()
+print("Command: " + cmd)
 os.system(cmd)
