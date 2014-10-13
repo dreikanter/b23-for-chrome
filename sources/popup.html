@@ -154,10 +154,10 @@ function copyText(shortUrl)
 		textarea.style.position = 'absolute';
 		textarea.style.top = -textarea.height;
 		textarea.style.left = -textarea.width;
-        document.body.appendChild(textarea); 
-        textarea.select(); 
-        document.execCommand('copy'); 
-        document.body.removeChild(textarea); 
+		document.body.appendChild(textarea); 
+		textarea.select(); 
+		document.execCommand('copy'); 
+		document.body.removeChild(textarea); 
 		
 		// Close
 		var button = element('copy_link');
@@ -201,7 +201,7 @@ function getSettingsUrl()
 
 
 function utf8_to_b64( str ) {
-    return window.btoa(unescape(encodeURIComponent( str )));
+	return window.btoa(unescape(encodeURIComponent( str )));
 }
 
 </script>
